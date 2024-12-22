@@ -1,5 +1,8 @@
 import os
+import os
 
+# 设置可见的CUDA设备
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ['HF_HOME'] = os.path.join(os.path.dirname(__file__), 'hf_download')
 HF_TOKEN = None
 
@@ -69,8 +72,8 @@ memory_management.unload_all_models([text_encoder, text_encoder_2, vae, unet])
 # LLM
 
 # llm_name = 'lllyasviel/omost-phi-3-mini-128k-8bits'
-llm_name = 'lllyasviel/omost-llama-3-8b-4bits'
-# llm_name = 'lllyasviel/omost-dolphin-2.9-llama3-8b-4bits'
+# llm_name = 'lllyasviel/omost-llama-3-8b-4bits'
+llm_name = 'lllyasviel/omost-dolphin-2.9-llama3-8b-4bits'
 
 llm_model = AutoModelForCausalLM.from_pretrained(
     llm_name,
@@ -115,6 +118,8 @@ def resize_without_crop(image, target_width, target_height):
 def chat_fn(message: str, history: list, seed:int, temperature: float, top_p: float, max_new_tokens: int) -> str:
     np.random.seed(int(seed))
     torch.manual_seed(int(seed))
+    
+    print("chat_fn history",history)
 
     conversation = [{"role": "system", "content": omost_canvas.system_prompt}]
 
@@ -163,8 +168,8 @@ def chat_fn(message: str, history: list, seed:int, temperature: float, top_p: fl
     outputs = []
     for text in streamer:
         outputs.append(text)
-        # print(outputs)
         yield "".join(outputs), interrupter
+    # print(outputs)
 
     return
 
@@ -172,6 +177,8 @@ def chat_fn(message: str, history: list, seed:int, temperature: float, top_p: fl
 @torch.inference_mode()
 def post_chat(history):
     canvas_outputs = None
+    
+    print("postchat history",history)
 
     try:
         if history:
@@ -182,6 +189,8 @@ def post_chat(history):
     except Exception as e:
         print('Last assistant response is not valid canvas:', e)
 
+    print(f"processed canvas",canvas_outputs)
+
     return canvas_outputs, gr.update(visible=canvas_outputs is not None), gr.update(interactive=len(history) > 0)
 
 
@@ -191,6 +200,7 @@ def diffusion_fn(chatbot, canvas_outputs, num_samples, seed, image_width, image_
 
     use_initial_latent = False
     eps = 0.05
+    print(f"canvas ouput {canvas_outputs}")
 
     image_width, image_height = int(image_width // 64) * 64, int(image_height // 64) * 64
 
@@ -368,6 +378,9 @@ with gr.Blocks(
                 examples=examples
             )
 
+            print("before diffusion_fn canvas_state",canvas_state)
+            print("before diffusion_fn chatbot",chatbot)
+
     render_button.click(
         fn=diffusion_fn, inputs=[
             chatInterface.chatbot, canvas_state,
@@ -379,4 +392,4 @@ with gr.Blocks(
         ], outputs=[chatInterface.chatbot_state])
 
 if __name__ == "__main__":
-    demo.queue().launch(inbrowser=True, server_name='0.0.0.0')
+    demo.queue().launch(inbrowser=True, share=True, server_name='0.0.0.0',server_port = 10000)

@@ -5,7 +5,7 @@ from itertools import product
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ['HF_HOME'] = os.path.join(os.path.dirname(__file__), 'hf_download')
 HF_TOKEN = None
-OUTPUT_FOLDER = "/home/sean/Omost/outputs/newEX20"
+OUTPUT_FOLDER = "outputs/newEX20"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 import lib_omost.memory_management as memory_management
 
