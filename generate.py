@@ -12,11 +12,11 @@ import lib_omost.memory_management as memory_management
 import torch
 torch.cuda.set_device(0)
 import numpy as np
-import gradio as gr
+# import gradio as gr
 import tempfile
 
-gradio_temp_dir = os.path.join(tempfile.gettempdir(), 'gradio')
-os.makedirs(gradio_temp_dir, exist_ok=True)
+# gradio_temp_dir = os.path.join(tempfile.gettempdir(), 'gradio')
+# os.makedirs(gradio_temp_dir, exist_ok=True)
 
 from threading import Thread
 
@@ -192,7 +192,7 @@ def post_chat(history):
 
     print(f"processed canvas",canvas_outputs)
 
-    return canvas_outputs, gr.update(visible=canvas_outputs is not None), gr.update(interactive=len(history) > 0)
+    return canvas_outputs, None, None
 
 
 @torch.inference_mode()
