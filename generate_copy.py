@@ -198,7 +198,7 @@ def post_chat(history):
 
 @torch.inference_mode()
 def diffusion_fn( canvas_outputs, seed, image_name,image_folder = OUTPUT_FOLDER,num_samples = 1, image_width = 896, image_height =1152,
-                 highres_scale = 1.2, steps = 30, cfg = 7.0, highres_steps = 20, highres_denoise = 0.4,negative_prompt = 'lowres, bad anatomy, bad hands, cropped, worst quality, wrong number, small objects'):
+                 highres_scale = 1.2, steps = 30, cfg = 7.0, highres_steps = 20, highres_denoise = 0.4,negative_prompt = 'lowres, bad anatomy, bad hands, cropped, worst quality, wrong number, small objects, face asymmetry, eyes asymmetry, deformed eyes, open mouth'):
 
     use_initial_latent = False
     use_initial_latent = True
@@ -310,7 +310,7 @@ def generate_combinations(group, group_name):
         "group_4": "A clean, well-organized dining table set on a smooth, wooden surface with a plain light-colored wall behind, set with",
     }
     
-    ending = ('which should be close to camera, clearly visible, placed separately without any additional items, and viewed from a top-down angle. '
+    ending = ('which should be close to camera, clearly visible, placed separately without any additional items '
               'The background should be minimal and uncluttered, with plain walls or neutral surfaces. '
               'The camera should be positioned directly above the objects, ensuring a flat, evenly lit, and well-centered composition.')
     
@@ -355,11 +355,11 @@ def generate_combinations(group, group_name):
 
 # 示例输入
 groups = {
-    # "group_0": {
-    #     0: "man",
-    #     1: "sedan",
-    #     2: "bench"
-    # },
+    "group_0": {
+        0: "man",
+        1: "sedan",
+        2: "bench"
+    },
     # "group_1": {
     #     0: "bird",
     #     1: "boy",
@@ -370,11 +370,11 @@ groups = {
     #     1: "umbrella",
     #     2: "suitcase"
     # },
-    "group_3": {
-        0: "cake",
-        1: "apple",
-        2: "orange"
-    },
+    # "group_3": {
+    #     0: "cake",
+    #     1: "apple",
+    #     2: "orange"
+    # },
     # "group_4": {
     #     0: "cup",
     #     1: "fork",
@@ -427,8 +427,8 @@ def is_match_yolo(yolo_model, photo_path, name_list, corresponding_num_list):
     # Initialize a dictionary to count occurrences of the target names
     detected_count = {name: 0 for name in name_list}
     names = yolo_model.names
-    # names[0] = "man"
-    # names[2] = "sedan"
+    names[0] = "man"
+    names[2] = "sedan"
 
     # Count detections
     for r in results:
