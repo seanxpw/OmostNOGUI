@@ -306,7 +306,7 @@ def generate_combinations(group, group_name):
         "group_0": "A quite empty street with only ",
         "group_1": "A quiet indoor pet corner with nothing on the floor and a plain wall behind, featuring",
         "group_2": "A traveler's neatly packed luggage on a flat, uncluttered surface against a neutral background, containing",
-        "group_3": "A modern tech-filled home office desk with a plain wall behind and no extra items, featuring",
+        "group_3": "A clean empty dining table, on the table, there're only ",
         "group_4": "A clean, well-organized dining table set on a smooth, wooden surface with a plain light-colored wall behind, set with",
     }
     
@@ -360,21 +360,21 @@ groups = {
     #     1: "sedan",
     #     2: "bench"
     # },
-    "group_1": {
-        0: "bird",
-        1: "boy",
-        2: "dog",
-    },
+    # "group_1": {
+    #     0: "bird",
+    #     1: "boy",
+    #     2: "dog",
+    # },
     # "group_2": {
     #     0: "backpack",
     #     1: "umbrella",
     #     2: "suitcase"
     # },
-    # "group_3": {
-    #     0: "tv",
-    #     1: "laptop",
-    #     2: "cell phone"
-    # },
+    "group_3": {
+        0: "cake",
+        1: "apple",
+        2: "orange"
+    },
     # "group_4": {
     #     0: "cup",
     #     1: "fork",
@@ -427,7 +427,7 @@ def is_match_yolo(yolo_model, photo_path, name_list, corresponding_num_list):
     # Initialize a dictionary to count occurrences of the target names
     detected_count = {name: 0 for name in name_list}
     names = yolo_model.names
-    names[0] = "boy"
+    # names[0] = "man"
     # names[2] = "sedan"
 
     # Count detections
@@ -451,7 +451,7 @@ from ultralytics import YOLO
 yolo_model = YOLO("yolo11l.pt")  # load an official model
 
 if __name__ == '__main__':
-    skip_count = 3  # Number of combinations to skip
+    skip_count = 0  # Number of combinations to skip
     for group_name, group in groups.items():
         logging.info(f"Combinations for {group_name}:")
         combinations, names, counts, yolo_name_lists, yolo_count_lists = generate_combinations(group, group_name)
@@ -477,7 +477,7 @@ if __name__ == '__main__':
 
                 # Call post_chat and print canvas_state
                 canvas_state, _, _ = post_chat(post_history)
-                print(f"Canvas state for '{combo}': {canvas_state} (type: {type(canvas_state)})")
+                # print(f"Canvas state for '{combo}': {canvas_state} (type: {type(canvas_state)})")
 
                 if canvas_state is None:
                     logging.warning(f"Canvas state is None for {combo}. Retrying...")
