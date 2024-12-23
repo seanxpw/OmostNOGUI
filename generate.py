@@ -5,7 +5,7 @@ from itertools import product
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ['HF_HOME'] = os.path.join(os.path.dirname(__file__), 'hf_download')
 HF_TOKEN = None
-OUTPUT_FOLDER = "outputs/newEX20"
+OUTPUT_FOLDER = "/kaggle/working/outputs/newEX20"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 import lib_omost.memory_management as memory_management
 
@@ -356,7 +356,7 @@ def generate_combinations(group, group_name):
 groups = {
     "group_0": {
         0: "man",
-        1: "car",
+        1: "sedan",
         2: "bench"
     },
     # "group_1": {
@@ -427,6 +427,7 @@ def is_match_yolo(yolo_model, photo_path, name_list, corresponding_num_list):
     detected_count = {name: 0 for name in name_list}
     names = yolo_model.names
     names[0] = "man"
+    names[2] = "sedan"
 
     # Count detections
     for r in results:

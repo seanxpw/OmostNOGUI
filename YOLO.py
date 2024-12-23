@@ -7,7 +7,7 @@ model = YOLO("yolo11l.pt")  # load an official model
 names = model.names
 
 print(names)
-names[0] = "boy"
+names[2] = "sedan"
 print(names)
 # Predict with the model
 # results = model('/home/sean/Omost/74a6963bb8e94bafaf7f12111b7e22e4_0.png',save=True)  # predict on an image
