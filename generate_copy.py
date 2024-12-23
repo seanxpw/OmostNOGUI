@@ -191,7 +191,7 @@ def post_chat(history):
     except Exception as e:
         print('Last assistant response is not valid canvas:', e)
 
-    print(f"processed canvas",canvas_outputs)
+    # print(f"processed canvas",canvas_outputs)
 
     return canvas_outputs, None, None
 
@@ -201,7 +201,7 @@ def diffusion_fn( canvas_outputs, seed, image_name,image_folder = OUTPUT_FOLDER,
                  highres_scale = 1.2, steps = 30, cfg = 7.0, highres_steps = 20, highres_denoise = 0.4,negative_prompt = 'lowres, bad anatomy, bad hands, cropped, worst quality, wrong number, small objects, face asymmetry, eyes asymmetry, deformed eyes, open mouth'):
 
     use_initial_latent = False
-    use_initial_latent = True
+    # use_initial_latent = True
     eps = 0.05
     # print(f"canvas ouput {canvas_outputs}")
 
@@ -311,8 +311,7 @@ def generate_combinations(group, group_name):
     }
     
     ending = ('which should be close to camera, clearly visible, placed separately without any additional items '
-              'The background should be minimal and uncluttered, with plain walls or neutral surfaces. '
-              'The camera should be positioned directly above the objects, ensuring a flat, evenly lit, and well-centered composition.')
+              'The background should be minimal and uncluttered, with plain walls or neutral surfaces. ')
     
     scenario = group_scenarios.get(group_name, "In this scene, there are")
     
@@ -355,11 +354,11 @@ def generate_combinations(group, group_name):
 
 # 示例输入
 groups = {
-    "group_0": {
-        0: "man",
-        1: "sedan",
-        2: "bench"
-    },
+    # "group_0": {
+    #     0: "man",
+    #     1: "sedan",
+    #     2: "bench"
+    # },
     # "group_1": {
     #     0: "bird",
     #     1: "boy",
@@ -370,11 +369,11 @@ groups = {
     #     1: "umbrella",
     #     2: "suitcase"
     # },
-    # "group_3": {
-    #     0: "cake",
-    #     1: "apple",
-    #     2: "orange"
-    # },
+    "group_3": {
+        0: "cake",
+        1: "hot dog",
+        2: "orange"
+    },
     # "group_4": {
     #     0: "cup",
     #     1: "fork",
@@ -488,13 +487,13 @@ if __name__ == '__main__':
 
                 # Save output to a file
                 simplified_name_full = f"{simplified_name}_{rounds}_{seed}"
-                file_path = os.path.join(folder, simplified_name_full)
+                file_path = os.path.join(folder,  f"{simplified_name_full}.txt")
                 with open(file_path, "w") as file:
                     file.write(outputs[0])
                 logging.info(f"Output saved to {simplified_name_full}.txt.")
 
                 # Call diffusion function
-                diffusion_fn(canvas_state, seed, image_folder=folder, image_name=simplified_name_full, steps=28 + count)
+                diffusion_fn(canvas_state, seed, image_folder=folder, image_name=simplified_name_full, steps=30 + count)
                 logging.info(f"Diffusion function called for {simplified_name} with seed: {seed}.")
 
                 # Perform YOLO detection and check match
