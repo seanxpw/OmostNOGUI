@@ -302,7 +302,7 @@ def generate_combinations(group, group_name):
     
     # 更贴合的室内场景描述
     group_scenarios = {
-        "group_0": "A private home garage with only a clean concrete floor and plain walls, featuring",
+        "group_0": "A quite empty street with only ",
         "group_1": "A quiet indoor pet corner with nothing on the floor and a plain wall behind, featuring",
         "group_2": "A traveler's neatly packed luggage on a flat, uncluttered surface against a neutral background, containing",
         "group_3": "A modern tech-filled home office desk with a plain wall behind and no extra items, featuring",
@@ -354,16 +354,16 @@ def generate_combinations(group, group_name):
 
 # 示例输入
 groups = {
-    # "group_0": {
-    #     0: "man",
-    #     1: "car",
-    #     2: "bench"
-    # },
-    "group_1": {
-        0: "bird",
-        1: "boy",
-        2: "dog",
+    "group_0": {
+        0: "man",
+        1: "car",
+        2: "bench"
     },
+    # "group_1": {
+    #     0: "bird",
+    #     1: "boy",
+    #     2: "dog",
+    # },
     # "group_2": {
     #     0: "backpack",
     #     1: "umbrella",
@@ -426,7 +426,7 @@ def is_match_yolo(yolo_model, photo_path, name_list, corresponding_num_list):
     # Initialize a dictionary to count occurrences of the target names
     detected_count = {name: 0 for name in name_list}
     names = yolo_model.names
-    names[0] = "boy"
+    names[0] = "man"
 
     # Count detections
     for r in results:
