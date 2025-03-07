@@ -385,15 +385,15 @@ for i in range(1, 51):
         continue
 
     # Save description prompt
-    image_folder = os.path.join(OUTPUT_FOLDER, f"image_{i}")
+    image_folder = os.path.join(OUTPUT_FOLDER, f"image_{i}_{seed}")
     os.makedirs(image_folder, exist_ok=True)
 
-    description_path = os.path.join(image_folder, f"description_{i}.txt")
+    description_path = os.path.join(image_folder, f"description_{i}_{seed}.txt")
     with open(description_path, "w") as file:
         file.write(prompt)
 
     # Save object counts to a JSON file for later analysis
-    counts_path = os.path.join(image_folder, f"object_counts_{i}.json")
+    counts_path = os.path.join(image_folder, f"object_counts_{i}_{seed}.json")
     with open(counts_path, "w") as file:
         json.dump(object_counts, file, indent=4)
 
