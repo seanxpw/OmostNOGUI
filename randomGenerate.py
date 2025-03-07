@@ -191,7 +191,7 @@ def post_chat(history):
     except Exception as e:
         print('Last assistant response is not valid canvas:', e)
 
-    print(f"processed canvas",canvas_outputs)
+    #print(f"processed canvas",canvas_outputs)
 
     return canvas_outputs, None, None
 
@@ -365,7 +365,7 @@ def generate_vague_prompt():
 
 import json
 
-for i in range(1, 101):
+for i in range(1, 51):
     prompt, object_counts = generate_vague_prompt()  # Fix: unpack the tuple
 
     seed = random.randint(1, 100000)
@@ -398,7 +398,7 @@ for i in range(1, 101):
         json.dump(object_counts, file, indent=4)
 
     # Run diffusion process to generate image
-    image_name = f"image_{i}"
+    image_name = f"image_{i}_{seed}"
     diffusion_fn(canvas_state, seed, image_folder=image_folder, image_name=image_name, steps=28 + len(object_counts))
 
     logging.info(f"Image {i} generated and saved.")
