@@ -6,7 +6,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ['HF_HOME'] = os.path.join(os.path.dirname(__file__), 'hf_download')
 HF_TOKEN = None
 OUTPUT_FOLDER = "/home/sean/Omost/outputs/random"
-# OUTPUT_FOLDER = "/kaggle/working/outputs/newEX20"
+OUTPUT_FOLDER = "/kaggle/working/outputs/random"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 import lib_omost.memory_management as memory_management
 
