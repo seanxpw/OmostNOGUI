@@ -2,6 +2,9 @@ import os
 import os
 from itertools import product
 # 设置可见的CUDA设备
+import os
+
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ['HF_HOME'] = os.path.join(os.path.dirname(__file__), 'hf_download')
 HF_TOKEN = None
@@ -197,7 +200,7 @@ def post_chat(history):
 
 
 @torch.inference_mode()
-def diffusion_fn( canvas_outputs, seed, image_name,image_folder = OUTPUT_FOLDER,num_samples = 1, image_width = 896, image_height =1152,
+def diffusion_fn( canvas_outputs, seed, image_name,image_folder = OUTPUT_FOLDER,num_samples = 1, image_width = 600, image_height =800,
                  highres_scale = 1.2, steps = 30, cfg = 7.0, highres_steps = 20, highres_denoise = 0.4,negative_prompt = 'lowres, bad anatomy, bad hands, cropped, worst quality, wrong number, small objects'):
 
     use_initial_latent = False
