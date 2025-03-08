@@ -368,7 +368,7 @@ def generate_vague_prompt():
 
 import json
 
-for i in range(1, 51):
+for i in range(1, 101):
     prompt, object_counts = generate_vague_prompt()  # Fix: unpack the tuple
 
     seed = random.randint(1, 100000)
